@@ -1,6 +1,6 @@
 #!/bin/bash
 i=0
-file="/rsgrps/bh_class/emilyenglish/biosys-analytics/assignments/02-bash-scripting/$1"
+file=$1
 if [[ $# -eq 0 ]]; then
         echo "Usage: cat-n.sh FILE"
         exit 1
