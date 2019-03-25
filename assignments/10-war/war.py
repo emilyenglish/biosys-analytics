@@ -7,7 +7,6 @@ Purpose: simplified war card game
 
 import argparse
 import sys
-import itertools
 import random
 # --------------------------------------------------
 def get_args():
@@ -57,11 +56,11 @@ def main():
     deck.sort(key=lambda x: x[0])
     #print(deck)
     #print(" ")
-    if not SEED == None:
-        random.seed(SEED)
-        random.shuffle(deck)
+    
+    random.seed(SEED)
+    random.shuffle(deck)
     #print(deck)
-        deck.reverse()
+    deck.reverse()
     #print(deck)
     p1_score = 0
     p2_score = 0
@@ -71,21 +70,26 @@ def main():
         p2_play = deck.pop(0)
         p1 = p1_play[1]
         p2 = p2_play[1]
+        a = p1_play[0]
+        b = p2_play[0]
+        P1 = 'P1'
+        P2 = 'P2'
+        war = 'WAR!'
         if p1 > p2:
             p1_score = p1_score + 1
-            print(p1_play[0],p2_play[0]+ ' P1')
-        if p2 > p1:
+            print('{0:>3} {1:>3} {2:>2}'.format(a,b,P1))
+        elif p2 > p1:
             p2_score = p2_score + 1
-            print(p1_play[0],p2_play[0]+ ' P2')
-        if p2 == p1:
-            print(p1_play[0],p2_play[0]+ ' WAR!')
+            print('{0:>3} {1:>3} {2:>2}'.format(a,b,P2))
+        else:
+            print('{0:>3} {1:>3} {2:>2}'.format(a,b,war))
         count = count -1
     if p1_score > p2_score:
-        print("P1 {} P2 {}: Player 1 wins".format(p1_score, p2_score))
+        print("P1{0:>3} P2{1:>3}: Player 1 wins".format(p1_score, p2_score))
     if p2_score > p1_score:
-        print("P1 {} P2 {}: Player 2 wins".format(p1_score, p2_score))
+        print("P1{0:>3} P2{1:>3}: Player 2 wins".format(p1_score, p2_score))
     if p1_score == p2_score:
-        print("P1 {} P2 {}: DRAW".format(p1_score, p2_score))
+        print("P1{0:>3} P2{1:>3}: DRAW".format(p1_score, p2_score))
 # --------------------------------------------------
 if __name__ == '__main__':
     main()
