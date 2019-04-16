@@ -36,29 +36,37 @@ def warn(msg):
 def die(msg='Something bad happened'):
     """warn() and exit with error"""
     warn(msg)
-    sys.exit(1) 
+    sys.exit(1)
 # --------------------------------------------------
-def dist(s1, s2):
-    """count = 0
-    with open(s1, 'r') as f1:
-        with open(s2, 'r') as f2:
-            words1 = set(line.strip() for line in f1)
-            words2 = set(line.strip() for line in f2)
-    print(words1)
-    print(words2)"""
-    diff = 0   
-    #bytesS1=bytes(s1)
-    #bytesS2=bytes(s2, encoding="ascii")
-    if os.path.isfile(s1):
-        f1 = open(s1, 'r')
-        words1 = list(f1.read().split())
+def dist6(seq1, seq2):
+    print("hi")
     
-        f2 = open(s2, 'r')
-        words2 = list(f2.read().split())
-    else:
-        words1 = s1 
-        words2 = s2
+# --------------------------------------------------
+def dist(seq1, seq2):
+    count = sum(1 for a, b in zip(seq1, seq2) if a != b) + abs(len(seq1) - len(seq2))
+    return(count)
+# --------------------------------------------------
+def dist3(s1, s2):
+    k = 0
+    i =0
+    diff = 0
+    for k in range(len(s1[i])):
+        if s2[k] != s1[k]:
+            diff += 1
+            k += 1
+    print(diff)
+# --------------------------------------------------
+def dist2(s1, s2):
+    diff = 0   
     i=0
+      
+    f1 = open(s1, 'r')
+    words1 = list(f1.read().split())
+    
+    f2 = open(s2, 'r')
+    words2 = list(f2.read().split())
+   
+         
     a = list(zip(words1, words2))
     for i in range(len(a)):
         
@@ -67,31 +75,38 @@ def dist(s1, s2):
             for j in range(len(a[i][0])):
                 l = len(a[i][0])
                 b= a[i][1].ljust(l,'0')
+                diff = dist(a[i][0], b[i])
+                count = count + diff
                 #print(b)
                 #print(a[i][0][j], b[i][1][j])
-                if a[i][0][j] != b[i][1][j]:
-                    diff += 1
-                    j += 1
+                """if a[i][0][j] != b[i][1][j]:
+                    diff +=
+                    j += 1"""
                     
         elif len(a[i][0]) < len(a[i][1]):
             k=0
             for k in range(len(a[i][1])):
                 l = len(a[i][1])
                 b = a[i][0].ljust(l,'0')
+                diff = dist(b[i], a[i][1])
+                count = count + diff
                 #print(b)
                 #print(b[k], a[i][1][k])               
-                if b[k] != a[i][1][k]:
+                """if b[k] != a[i][1][k]:
                     diff += 1
-                    k += 1
+                    k += 1"""
                     
         else:
             h=0
             for h in range(len(a[i][1])):
+                diff = dist(a[i][0], a[i][1])
+                count = count + diff
                 #print(a[i][0][h], a[i][1][h])
-                if a[i][0][h] != a[i][1][h]:
+                """if a[i][0][h] != a[i][1][h]:
                     diff += 1
-                    h += 1
+                    h += 1"""
         i += 1 
+    print(count)
                     
     print(diff)
     #print(a[i][0], a[i][1])
@@ -115,9 +130,71 @@ def main():
         filename='.log',
         filemode='w',
         level=logging.DEBUG if args.debug else logging.CRITICAL
-        )  
+        )
+    f1 = open(File1, 'r')
+    words1 = list(f1.read().split())
+    f2 = open(File2, 'r')
+    words2 = list(f2.read().split())             
+    a = list(zip(words1, words2))
     dist(File1, File2)
-    
+    diff = 0
+    for i in range(len(a)):
+
+        if len(a[i][0]) > len(a[i][1]):
+            j=0
+            for j in range(len(a[i][0])):
+                l = len(a[i][0])
+                b= a[i][1].ljust(l,'0')
+                #print(b)
+                #print(a[i][0][j], b[i][1][j])
+                if a[i][0][j] != b[i][1][j]:
+                    diff += 1
+                    j += 1
+
+        elif len(a[i][0]) < len(a[i][1]):
+            k=0
+            for k in range(len(a[i][1])):
+                l = len(a[i][1])
+                b = a[i][0].ljust(l,'0')
+                #print(b)
+                #print(b[k], a[i][1][k])               
+                if b[k] != a[i][1][k]:
+                    diff += 1
+                    k += 1
+
+        else:
+            h=0
+            for h in range(len(a[i][1])):
+                #print(a[i][0][h], a[i][1][h])
+                if a[i][0][h] != a[i][1][h]:
+                    diff += 1
+                    h += 1
+        i += 1
+    print(diff)
+    """count = 0
+    for i in range(len(a)):
+        if len(a[i][0]) > len(a[i][1]):
+            j=0
+            for j in range(len(a[i][0])):
+                l = len(a[i][0])
+                b= a[i][1].ljust(l,'0') 
+                dist(a[i][0], b[k])
+                count += 1 
+        elif len(a[i][0]) < len(a[i][1]):
+            k=0
+            for k in range(len(a[i][1])):
+                l = len(a[i][1])
+                b = a[i][0].ljust(l,'0')
+                dist(b[k], a[i][1])
+                count += 1
+        else: 
+            k=0
+            for k in range(len(a[i][1])):
+                l = len(a[i][1])
+                b = a[i][0].ljust(l,'0')
+                dist(b[k], a[i][1])
+                count += 1
+        print(count)"""           
     #dict(zip(a, l))    
 
 
