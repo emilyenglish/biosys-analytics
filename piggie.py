@@ -2,7 +2,7 @@
 """
 Author : emilyenglish
 Date   : 2019-05-06
-Purpose: Rock the Casbah
+Purpose: pig latin from a file
 """
 
 import argparse
